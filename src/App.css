@@ -1,56 +1,13 @@
- /* All's */
-
 a {
   text-decoration: none;
   color: #FFF;
 }
-
-  /* /all's */
  
- .app-wrapper {
+.app-wrapper {
   background: red;
   display: grid;
   grid-template:
     "h h" 60px
     "n c" 1fr
-    / 2fr 10fr
+    / 2fr 10fr;
 }
-
-/* Header */
-
-.app-wrapper .header {
-  grid-area: h;
-  background: red;
-}
-
-/* /header */
-
-.app-wrapper .header img {
-  width: 30px;
-  height: 30px;
-}
-
-/* Nav */
-
-.app-wrapper .nav {
-  grid-area: n;
-  background: brown;
-}
-
-/* /nav */
-
-/* Content */
-
-.app-wrapper .content {
-  grid-area: c;
-  background: green;
-}
-
-.app-wrapper .content .full-width {
-  width: 100%;
-  height: 250px;
-}
-
-
-
-/* /content */

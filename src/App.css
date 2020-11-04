@@ -1,13 +1,18 @@
-a {
-  text-decoration: none;
-  color: #FFF;
+/* global settings */
+
+* {
+  box-sizing: border-box;
 }
- 
+
 .app-wrapper {
-  background: red;
+  font-size: 10px;
   display: grid;
   grid-template:
     "h h" 60px
     "n c" 1fr
     / 2fr 10fr;
+}
+
+.app-wrapper-content {
+  grid-area: c;
 }

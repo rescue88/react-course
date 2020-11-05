@@ -11,6 +11,7 @@
     "h h" 60px
     "n c" 1fr
     / 2fr 10fr;
+  grid-gap: 10px 10px;
 }
 
 .app-wrapper-content {

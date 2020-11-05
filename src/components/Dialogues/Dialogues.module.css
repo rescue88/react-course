@@ -1,0 +1,21 @@
+.dialogues {
+    display: grid;
+    grid-template: 
+    "d m"
+    / 2fr 10fr;
+    grid-gap: 10px;
+}
+
+.dialogues .dialoguesItems {
+    grid-area: d;
+    background: red;
+}
+
+.dialogues .dialoguesItems .active {
+    color: gold;
+}
+
+.dialogues .dialoguesMessages {
+    grid-area: m;
+    background: blue;
+}

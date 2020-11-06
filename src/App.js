@@ -13,14 +13,16 @@ import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import Friends from './components/Friends/Friends';
+//functions
 
 const App = (props) => {
+
   return (
     <div className="app-wrapper">
       <Header />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route path="/profile" render={ () => <Profile posts={props.state.profilePage.posts} /> } />
+        <Route path="/profile" render={ () => <Profile posts={props.state.profilePage.posts} addPost={props.addPost} /> } />
         <Route path="/dialogues" render={ () => <Dialogues dialogues={props.state.dialoguesPage.dialogues} messages={props.state.dialoguesPage.messages} /> } />
         <Route path="/news" render={ () => <News /> } />
         <Route path="/music" render={ () => <Music />} />

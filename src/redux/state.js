@@ -1,4 +1,4 @@
-/* Global variables */
+import { rerenderTree } from "../render";
 
 let state = {
   profilePage: {
@@ -24,6 +24,17 @@ let state = {
       {id: 5, message: "Heyoooou"},
     ],
   },
+}
+
+export let addPost = (postMessage) => {
+  debugger;
+  let newPost = {
+    id: 4,
+    message: postMessage,
+    likesCount: 0,
+  };
+  state.profilePage.posts.push(newPost);
+  rerenderTree(state);
 }
 
 export default state;

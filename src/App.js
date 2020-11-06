@@ -12,22 +12,22 @@ import Dialogues from './components/Dialogues/Dialogues';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
+import Friends from './components/Friends/Friends';
 
 const App = (props) => {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Navbar />
-        <div className="app-wrapper-content">
-          <Route path="/profile" render={ () => <Profile posts={props.posts} /> } />
-          <Route path="/dialogues" render={ () => <Dialogues dialogues={props.dialogues} messages={props.messages} /> } />
-          <Route path="/news" render={ () => <News /> } />
-          <Route path="/music" render={ () => <Music />} />
-          <Route path="/settings" render={ () => <Settings /> } />
-        </div>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <div className="app-wrapper-content">
+        <Route path="/profile" render={ () => <Profile posts={props.state.profilePage.posts} /> } />
+        <Route path="/dialogues" render={ () => <Dialogues dialogues={props.state.dialoguesPage.dialogues} messages={props.state.dialoguesPage.messages} /> } />
+        <Route path="/news" render={ () => <News /> } />
+        <Route path="/music" render={ () => <Music />} />
+        <Route path="/settings" render={ () => <Settings /> } />
+        <Route path="/friends" render={ () => <Friends /> } />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

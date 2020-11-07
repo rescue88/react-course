@@ -1,7 +1,7 @@
-let rerenderTree = () => {
-  console.log("Hi there");
-}
+//assign a variable for working with a rerender function
+let rerenderTree = () => { };
 
+//global variable with emulating info for posts/messges etc
 let state = {
   profilePage: {
     posts: [
@@ -29,8 +29,8 @@ let state = {
   },
 }
 
-export let addPost = () => {
-  debugger;
+//add a new post after click
+export const addPost = () => {
   let newPost = {
     id: 4,
     message: state.profilePage.newPostValue,
@@ -41,9 +41,15 @@ export let addPost = () => {
   rerenderTree(state);
 }
 
-export let updateNewPostValue = (newText) => {
+//watch for textarea changes
+export const updateNewPostValue = (newText) => {
   state.profilePage.newPostValue = newText;
   rerenderTree(state);
+}
+
+//get a callback function renderTree from index.js without imports
+export const subscribe = (observer) => {
+  rerenderTree = observer;
 }
 
 export default state;

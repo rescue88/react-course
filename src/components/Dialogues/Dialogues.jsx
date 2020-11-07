@@ -6,14 +6,14 @@ import st from './Dialogues.module.css';
 const Dialogues = (props) => {
 
     //get all dialog mates
-    let dialogsElements = props.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
+    let dialogsElements = props.dialogues.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
     //get all messages in the dialog
-    let messagesElements = props.messages.map( item => <Message message={item.message} /> );
+    let messagesElements = props.messages.messages.map( item => <Message message={item.message} /> );
     //send a message
     let newMessageElement = React.createRef();
 
     const addMessage = () => {
-        let text = newMessageElement.current.value;
+        // let text = newMessageElement.current.value;
     }
 
     return (

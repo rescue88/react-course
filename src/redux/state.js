@@ -1,4 +1,6 @@
-import { rerenderTree } from "../render";
+let rerenderTree = () => {
+  console.log("Hi there");
+}
 
 let state = {
   profilePage: {
@@ -7,6 +9,7 @@ let state = {
       {id: 2, message: "Welcome to the course, bro", likesCount: 3},
       {id: 3, message: "Heyoo, im finally here", likesCount: 0},
     ],
+    newPostValue: 'Type info to create a post',
   },
   dialoguesPage: {
     dialogues: [
@@ -26,14 +29,20 @@ let state = {
   },
 }
 
-export let addPost = (postMessage) => {
+export let addPost = () => {
   debugger;
   let newPost = {
     id: 4,
-    message: postMessage,
+    message: state.profilePage.newPostValue,
     likesCount: 0,
   };
   state.profilePage.posts.push(newPost);
+  updateNewPostValue("");
+  rerenderTree(state);
+}
+
+export let updateNewPostValue = (newText) => {
+  state.profilePage.newPostValue = newText;
   rerenderTree(state);
 }
 

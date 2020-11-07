@@ -1,7 +1,7 @@
 // styles
 import './App.css';
 // routing packages
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 // same components
 import Header from './components/Header/Header';
@@ -22,8 +22,14 @@ const App = (props) => {
       <Header />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route path="/profile" render={ () => <Profile posts={props.state.profilePage.posts} addPost={props.addPost} /> } />
-        <Route path="/dialogues" render={ () => <Dialogues dialogues={props.state.dialoguesPage.dialogues} messages={props.state.dialoguesPage.messages} /> } />
+        <Route path="/profile" render={ () => <Profile 
+                                                posts={props.state.profilePage}
+                                                addPost={props.addPost} 
+                                                updateNewPostValue={props.updateNewPostValue}
+                                                newPostValue = {props.state.profilePage.newPostValue} /> } />
+        <Route path="/dialogues" render={ () => <Dialogues
+                                                  dialogues={props.state.dialoguesPage} 
+                                                  messages={props.state.dialoguesPage} /> } />
         <Route path="/news" render={ () => <News /> } />
         <Route path="/music" render={ () => <Music />} />
         <Route path="/settings" render={ () => <Settings /> } />

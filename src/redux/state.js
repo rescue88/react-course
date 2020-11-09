@@ -1,5 +1,10 @@
+//unmutable variables
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';
+
 //store all data
 let store = {
+  //private variable - storing all the testing info
   _state : {
     profilePage: {
       posts: [
@@ -26,27 +31,55 @@ let store = {
       ],
     },
   },
+  //empty function template to get another from subscriber
+  _getSubscriber() { },
+
+  //return a _state variable
   getState() {
     return this._state;
   },
-  _rerenderTree() { },
-  addPost() {
-    let newPost = {
-      id: 4,
-      message: this._state.profilePage.newPostValue,
-      likesCount: 0,
-    };
-    this._state.profilePage.posts.push(newPost);
-    this.updateNewPostValue("");
-    this._rerenderTree(this._state);
-  },
-  updateNewPostValue(newText) {
-    this._state.profilePage.newPostValue = newText;
-    this._rerenderTree(this._state);
-  },
+  //get a callback and assign it for _getSubscriber
   subscribe(observer) {
-    this._rerenderTree = observer;
+    this._getSubscriber = observer;
+  },
+
+  //store functions
+  dispatch(action) {
+    //add a post after button clicked
+    switch(action.type) {
+      //add a new post after click
+      case 'ADD-POST':
+        let newPost = {
+          id: 4,
+          message: this._state.profilePage.newPostValue,
+          likesCount: 0,
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostValue = '';
+        this._getSubscriber(this._state);
+        break;
+      //change global variable after textarea changes
+      case 'UPDATE-POST-TEXTAREA':
+        this._state.profilePage.newPostValue = action.newText;
+        this._getSubscriber(this._state);
+        break;
+    }
   },
 };
+
+//action creator template for addPost function
+export const addPostActionCreator = () => {
+  return {
+      type: ADD_POST,
+  }
+}
+//action creator template for onPostChange function
+export const updateNewPostValueActionCreater = (text) => {
+  return {
+      type: UPDATE_POST_TEXTAREA,
+      newText: text,
+  }
+}
+
 export default store;
 window.store = store;

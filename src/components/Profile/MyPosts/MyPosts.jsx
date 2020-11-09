@@ -1,21 +1,23 @@
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
+import { addPostActionCreator, updateNewPostValueActionCreater } from './../../../redux/state';
 
 const MyPosts = (props) => {
     //get my posts
-    let postElements = props.posts.map( item => <Post message={item.message} likesCount={item.likesCount} /> );
+    let postElements = props.state.posts.map( item => <Post message={item.message} likesCount={item.likesCount} /> );
 
-    //add new post writing new info into a global state variable
+    //make a react link for textarea
     let newPostElement = React.createRef();
+    //add post after button clicked
     const addPost = () => {
-        let text = newPostElement.current.value;
-        props.addPost();
+        props.dispatch(addPostActionCreator());
     }
 
+    //change global variable to rerender page after input changes
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostValue(text);
+        props.dispatch(updateNewPostValueActionCreater(text));
     }
 
     return (
@@ -23,7 +25,7 @@ const MyPosts = (props) => {
         <h3>My posts</h3>
         <div>
             <div> 
-                <textarea onChange={ onPostChange } ref={ newPostElement } value={ props.newPostValue } />
+                <textarea onChange={ onPostChange } ref={ newPostElement } value={ props.state.newPostValue } />
             </div>
             <div>
                 <button onClick={ addPost }>Add post</button>

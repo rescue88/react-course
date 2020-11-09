@@ -11,7 +11,7 @@
     background: red;
 }
 
-.dialogues .dialoguesItems .active {
+.dialogues .dialoguesItems .dialog .active {
     color: gold;
 }
 

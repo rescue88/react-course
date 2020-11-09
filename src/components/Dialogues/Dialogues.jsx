@@ -2,13 +2,13 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import React from 'react';
 import st from './Dialogues.module.css';
+import { NavLink } from 'react-router-dom';
 
 const Dialogues = (props) => {
-
     //get all dialog mates
-    let dialogsElements = props.dialogues.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
+    let dialogsElements = props.state.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
     //get all messages in the dialog
-    let messagesElements = props.messages.messages.map( item => <Message message={item.message} /> );
+    let messagesElements = props.state.messages.map( item => <Message message={item.message} /> );
     //send a message
     let newMessageElement = React.createRef();
 

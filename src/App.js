@@ -16,7 +16,7 @@ import Friends from './components/Friends/Friends';
 //functions
 
 const App = (props) => {
-
+  debugger;
   return (
     <div className="app-wrapper">
       <Header />

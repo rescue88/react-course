@@ -1,7 +1,7 @@
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
-import { addPostActionCreator, updateNewPostValueActionCreater } from './../../../redux/state';
+import { addPostCreator, updateNewPostValueCreator } from './../../../redux/profileReducer';
 
 const MyPosts = (props) => {
     //get my posts
@@ -11,13 +11,12 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
     //add post after button clicked
     const addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.dispatch(addPostCreator());
     }
-
     //change global variable to rerender page after input changes
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.dispatch(updateNewPostValueActionCreater(text));
+        props.dispatch(updateNewPostValueCreator(text));
     }
 
     return (

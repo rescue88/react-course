@@ -2,7 +2,7 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import React from 'react';
 import st from './Dialogues.module.css';
-import { addMessageActionCreator, updateNewMessageValueActionCreator } from './../../redux/state';
+import { addMessageCreator, updateNewMessageValueCreator } from './../../redux/dialoguesReducer';
 
 const Dialogues = (props) => {
     //get all dialog mates
@@ -14,12 +14,12 @@ const Dialogues = (props) => {
 
     //add a message after button clicked
     const addMessage = () => {
-        props.dispatch(addMessageActionCreator());
+        props.dispatch(addMessageCreator());
     }
     //rerender tree after textarea changes
     const onMessageChange = (event) => {
         let text = event.target.value;
-        props.dispatch(updateNewMessageValueActionCreator(text));
+        props.dispatch(updateNewMessageValueCreator(text));
     }
 
     return (

@@ -1,10 +1,5 @@
-//unmutable variables
-//for MyPosts
-const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';
-//for Messages
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_MESSAGE_TEXTAREA = 'UPDATE-MESSAGE-TEXTAREA';
+import dialoguesReducer from "./dialoguesReducer";
+import profileReducer from "./profileReducer";
 
 //store all data
 let store = {
@@ -33,7 +28,7 @@ let store = {
         {id: 4, message: "Heyoooou"},
         {id: 5, message: "Heyoooou"},
       ],
-      newMessageValue: 'Enter a message',
+      newMessageValue: '',
     },
   },
   //empty function template to get another from subscriber
@@ -48,70 +43,15 @@ let store = {
     this._getSubscriber = observer;
   },
 
-  //store functions
+  //get an action and decide what to do after
   dispatch(action) {
-    //add a post after button clicked
-    switch(action.type) {
-      //add a new post after click
-      case ADD_POST:
-        let newPost = {
-          id: 4,
-          message: this._state.profilePage.newPostValue,
-          likesCount: 0,
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostValue = '';
-        this._getSubscriber(this._state);
-        break;
-      //change global variable after textarea changes
-      case UPDATE_POST_TEXTAREA:
-        this._state.profilePage.newPostValue = action.newText;
-        this._getSubscriber(this._state);
-        break;
-      case ADD_MESSAGE:
-        let newMessage = {
-          id: 6,
-          message: this._state.dialoguesPage.newMessageValue,
-        };
-        this._state.dialoguesPage.messages.push(newMessage);
-        this._state.dialoguesPage.newMessageValue = '';
-        this._getSubscriber(this._state);
-        break;
-      case UPDATE_MESSAGE_TEXTAREA:
-        this._state.dialoguesPage.newMessageValue = action.newText;
-        this._getSubscriber(this._state);
-        break;
-    }
+    //call reducers
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialoguesPage = dialoguesReducer(this._state.dialoguesPage, action);
+    //rerender tree after reducers returned _state
+    this._getSubscriber(this._state);
   },
 };
-
-//action creator template for addPost function
-export const addPostActionCreator = () => {
-  return {
-      type: ADD_POST,
-  }
-}
-//action creator template for onPostChange function
-export const updateNewPostValueActionCreater = (text) => {
-  return {
-      type: UPDATE_POST_TEXTAREA,
-      newText: text,
-  }
-}
-
-//action creator template for addMessage function
-export const addMessageActionCreator = () => {
-  return {
-    type: ADD_MESSAGE,
-  }
-}
-//action creator template for onMessageChange function
-export const updateNewMessageValueActionCreator = (text) => {
-  return {
-    type: UPDATE_MESSAGE_TEXTAREA,
-    newText: text,
-  }
-}
 
 export default store;
 window.store = store;

@@ -17,7 +17,6 @@ const rerenderTree = (state) => {
 }
 
 rerenderTree(store.getState());
-
 store.subscribe(rerenderTree);
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,18 +2,24 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import React from 'react';
 import st from './Dialogues.module.css';
-import { NavLink } from 'react-router-dom';
+import { addMessageActionCreator, updateNewMessageValueActionCreator } from './../../redux/state';
 
 const Dialogues = (props) => {
     //get all dialog mates
     let dialogsElements = props.state.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
     //get all messages in the dialog
     let messagesElements = props.state.messages.map( item => <Message message={item.message} /> );
-    //send a message
-    let newMessageElement = React.createRef();
+    //store newMessageValue in a local variable
+    let newMessageValue = props.state.newMessageValue;
 
+    //add a message after button clicked
     const addMessage = () => {
-        // let text = newMessageElement.current.value;
+        props.dispatch(addMessageActionCreator());
+    }
+    //rerender tree after textarea changes
+    const onMessageChange = (event) => {
+        let text = event.target.value;
+        props.dispatch(updateNewMessageValueActionCreator(text));
     }
 
     return (
@@ -22,12 +28,16 @@ const Dialogues = (props) => {
                 { dialogsElements }
             </div>
             <div className={st.dialoguesMessages}>
-                { messagesElements }
                 <div>
-                    <textarea ref={ newMessageElement }></textarea>
+                    { messagesElements }
                 </div>
                 <div>
-                    <button onClick={ addMessage }>Отправить</button>
+                    <div>
+                        <textarea onChange={onMessageChange} value={newMessageValue} placeholder="Enter your message"></textarea>
+                    </div>
+                    <div>
+                        <button onClick={ addMessage }>Отправить</button>
+                    </div>
                 </div>
             </div>  
         </div>

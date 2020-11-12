@@ -3,7 +3,6 @@ import Message from './Message/Message';
 import st from './Dialogues.module.css';
 
 const Dialogues = (props) => {
-    debugger;
     //get all dialog mates
     let dialoguesElements = props.dialogues.map( item => <DialogItem name={item.name} id={item.id} /> );
     //get all messages in the dialog

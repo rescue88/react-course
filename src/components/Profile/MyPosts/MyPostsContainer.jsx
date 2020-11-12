@@ -1,19 +1,28 @@
 import { addPostCreator, updateNewPostValueCreator } from '../../../redux/profileReducer';
+import storeContext from '../../../storeContext';
 import MyPosts from './MyPosts';
 
-const MyPostsContainer = (props) => {
-    //add post after button clicked
-    const addPost = () => {
-        props.dispatch(addPostCreator());
-    }
-    //change global variable to rerender page after input changes
-    const onPostChange = (text) => {
-        let action = updateNewPostValueCreator(text);
-        props.dispatch(action);
-    }
-
+const MyPostsContainer = () => {
     return (
-        <MyPosts updateNewPostValue={ onPostChange } addPost={ addPost } posts={ props.profileData.posts } newPostValue={ props.profileData.newPostValue } />
+        //use context
+        <storeContext.Consumer>
+            { (store) => {
+                let state = store.getState().profilePage;
+                //add post after button clicked
+                const addPost = () => {
+                    store.dispatch(addPostCreator());
+                }
+                //change global variable to rerender page after input changes
+                const onPostChange = (text) => {
+                    let action = updateNewPostValueCreator(text);
+                    store.dispatch(action);
+                }
+                return <MyPosts updateNewPostValue={ onPostChange }
+                                addPost={ addPost } 
+                                posts={ state.posts } 
+                                newPostValue={ state.newPostValue } />
+            }}
+        </storeContext.Consumer>
     );
 }
 

@@ -5,18 +5,18 @@ import { addPostCreator, updateNewPostValueCreator } from './../../../redux/prof
 
 const MyPosts = (props) => {
     //get my posts
-    let postElements = props.state.posts.map( item => <Post message={item.message} likesCount={item.likesCount} /> );
+    let postElements = props.posts.map( item => <Post message={item.message} likesCount={item.likesCount} /> );
 
     //make a react link for textarea
     let newPostElement = React.createRef();
     //add post after button clicked
-    const addPost = () => {
-        props.dispatch(addPostCreator());
+    const onAddPost = () => {
+        props.addPost();
     }
     //change global variable to rerender page after input changes
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.dispatch(updateNewPostValueCreator(text));
+        props.updateNewPostValue(text);
     }
 
     return (
@@ -24,10 +24,10 @@ const MyPosts = (props) => {
         <h3>My posts</h3>
         <div>
             <div> 
-                <textarea onChange={ onPostChange } ref={ newPostElement } value={ props.state.newPostValue } />
+                <textarea onChange={ onPostChange } ref={ newPostElement } value={ props.newPostValue } />
             </div>
             <div>
-                <button onClick={ addPost }>Add post</button>
+                <button onClick={ onAddPost }>Add post</button>
             </div>
         </div>
         <div className={st.add}>

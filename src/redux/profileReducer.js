@@ -26,7 +26,6 @@ export const updateNewPostValueCreator = (text) => {
 }
 //return changed state after a right action
 const profileReducer = (state = initialState, action) => {
-  //making a state copy
   switch(action.type) {
     //add a new post by click
     case ADD_POST:

@@ -13,42 +13,39 @@ let initialState = {
 
 //action creator template for addPost function
 export const addPostCreator = () => {
-    return {
-        type: ADD_POST,
-    }
+  return {
+      type: ADD_POST,
+  }
 }
 //action creator template for onPostChange function
 export const updateNewPostValueCreator = (text) => {
-    return {
-        type: UPDATE_POST_TEXTAREA,
-        newText: text,
-    }
+  return {
+      type: UPDATE_POST_TEXTAREA,
+      newText: text,
+  }
 }
 //return changed state after a right action
 const profileReducer = (state = initialState, action) => {
   //making a state copy
-  let stateCopy = { ...state };
-  stateCopy.posts = state.posts;
   switch(action.type) {
-      //add a new post by click
-      case ADD_POST:
-        let newPost = {
-          id: 4,
-          message: state.newPostValue,
-          likesCount: 0,
-        };
-        stateCopy.posts.push(newPost);
-        stateCopy.newPostValue = '';
-        break;
-      //look for changes in new post textarea
-      case UPDATE_POST_TEXTAREA:
-        stateCopy.newPostValue = action.newText;
-        break;
-      //return unchanged original state if there is not a profile action
-      default:
-          return state;
+    //add a new post by click
+    case ADD_POST:
+      let text = state.newPostValue;
+      return {
+        ...state,
+        posts: [...state.posts, {id: 4, message: text, likesCount: 0,}],
+        newPostValue: '',
+      }
+    //look for changes in new post textarea
+    case UPDATE_POST_TEXTAREA:
+      return {
+        ...state,
+        newPostValue: action.newText,
+      }
+    //return unchanged original state if there is not a profile action
+    default:
+        return state;
   }
-  return stateCopy;
 }
 
 export default profileReducer;

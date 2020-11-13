@@ -15,7 +15,7 @@ import Music from './components/Music/Music';
 import Friends from './components/Friends/Friends';
 //functions
 
-const App = (props) => {
+const App = () => {
   return (
     <div className="app-wrapper">
       <Header />

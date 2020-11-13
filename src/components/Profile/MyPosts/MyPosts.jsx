@@ -4,7 +4,7 @@ import React from 'react';
 
 const MyPosts = (props) => {
     //get my posts
-    let postElements = props.posts.map( item => <Post message={item.message} likesCount={item.likesCount} /> );
+    let postElements = props.posts.map( item => <Post id={ item.id } message={ item.message } likesCount={ item.likesCount } key={ item.id } /> );
 
     //make a react link for textarea
     let newPostElement = React.createRef();
@@ -19,7 +19,7 @@ const MyPosts = (props) => {
     }
 
     return (
-    <div className={st.content_posts}>
+    <div className={ st.content_posts }>
         <h3>My posts</h3>
         <div>
             <div> 
@@ -29,10 +29,10 @@ const MyPosts = (props) => {
                 <button onClick={ onAddPost }>Add post</button>
             </div>
         </div>
-        <div className={st.add}>
+        <div className={ st.add }>
             new post    
         </div>
-        <div className={st.container}>
+        <div className={ st.container }>
            { postElements }
         </div>
     </div>

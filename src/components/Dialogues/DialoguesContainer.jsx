@@ -1,30 +1,22 @@
+import { connect } from 'react-redux';
 import { addMessageCreator, updateNewMessageValueCreator } from '../../redux/dialoguesReducer';
-import storeContext from '../../storeContext';
 import Dialogues from './Dialogues';
-
-const DialoguesContainer = () => {
-    return (
-        //use context
-        <storeContext.Consumer> 
-            { (store) => {
-                let state = store.getState().dialoguesPage;
-                //add a message after button clicked
-                const addMessage = () => {
-                    store.dispatch(addMessageCreator());
-                }
-                //rerender tree after textarea changes
-                const updateNewMessageValue = (text) => {
-                    let action = updateNewMessageValueCreator(text);
-                    store.dispatch(action);
-                }
-                return <Dialogues dialogues={ state.dialogues } 
-                                    messages={ state.messages } 
-                                    newMessageValue = { state.newMessageValue } 
-                                    addMessage={ addMessage } 
-                                    updateNewMessageValue={ updateNewMessageValue } />
-            }}
-        </storeContext.Consumer>
-    );
+//function template to get dialogues info from state in connect
+let mapStateToProps = (state) => {
+    return {
+        dialogues: state.dialoguesPage.dialogues,
+        messages: state.dialoguesPage.messages,
+        newMessageValue: state.dialoguesPage.newMessageValue,
+    }
 }
+//function template to get callbacks and use dispatch in connect
+let mapDispatchToProps = (dispatch) => {
+    return {
+        updateNewMessageValue: (text) => { dispatch(updateNewMessageValueCreator(text))},
+        addMessage: () => { dispatch(addMessageCreator()) },
+    }
+}
+//create our container component
+const DialoguesContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogues);
 
 export default DialoguesContainer;

@@ -26,6 +26,9 @@ export const updateNewPostValueCreator = (text) => {
 }
 //return changed state after a right action
 const profileReducer = (state = initialState, action) => {
+  //making a state copy
+  let stateCopy = { ...state };
+  stateCopy.posts = state.posts;
   switch(action.type) {
       //add a new post by click
       case ADD_POST:
@@ -34,18 +37,18 @@ const profileReducer = (state = initialState, action) => {
           message: state.newPostValue,
           likesCount: 0,
         };
-        state.posts.push(newPost);
-        state.newPostValue = '';
+        stateCopy.posts.push(newPost);
+        stateCopy.newPostValue = '';
         break;
       //look for changes in new post textarea
       case UPDATE_POST_TEXTAREA:
-        state.newPostValue = action.newText;
+        stateCopy.newPostValue = action.newText;
         break;
-      //return unchanged state if there is not a profile action
+      //return unchanged original state if there is not a profile action
       default:
           return state;
   }
-  return state;
+  return stateCopy;
 }
 
 export default profileReducer;

@@ -1,29 +1,22 @@
+import { connect } from 'react-redux';
 import { addPostCreator, updateNewPostValueCreator } from '../../../redux/profileReducer';
-import storeContext from '../../../storeContext';
 import MyPosts from './MyPosts';
 
-const MyPostsContainer = () => {
-    return (
-        //use context
-        <storeContext.Consumer>
-            { (store) => {
-                let state = store.getState().profilePage;
-                //add post after button clicked
-                const addPost = () => {
-                    store.dispatch(addPostCreator());
-                }
-                //change global variable to rerender page after input changes
-                const onPostChange = (text) => {
-                    let action = updateNewPostValueCreator(text);
-                    store.dispatch(action);
-                }
-                return <MyPosts updateNewPostValue={ onPostChange }
-                                addPost={ addPost } 
-                                posts={ state.posts } 
-                                newPostValue={ state.newPostValue } />
-            }}
-        </storeContext.Consumer>
-    );
+//function template to get profile info from state in connect
+let mapStateToProps = (state) => {
+    return  {
+        posts: state.profilePage.posts,
+        newPostValue: state.profilePage.newPostValue,
+    }
 }
+//function template to get callbacks and use dispatch in connect
+let mapDispatchToProps = (dispatch) => {
+    return  {
+        addPost: () => { dispatch(addPostCreator()) },
+        updateNewPostValue: (text) => { dispatch(updateNewPostValueCreator(text)) },
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

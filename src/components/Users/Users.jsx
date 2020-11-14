@@ -4,8 +4,8 @@ import st from './Users.module.css';
 import userPhoto from './../../assets/images/Annie.png';
 
 class Users extends React.Component {
-    constructor(props) {
-        super(props);
+    //After first component's rendering add users
+    componentDidMount() {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             this.props.setUsers(response.data.items);
         });

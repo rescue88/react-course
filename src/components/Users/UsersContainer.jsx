@@ -1,4 +1,4 @@
-import { followCreator, setUsersCreator, unFollowCreator } from '../../redux/usersReducer';
+import { setUsersCreator, followCreator, unFollowCreator } from '../../redux/usersReducer';
 import Users from './Users';
 const { connect } = require("react-redux");
 
@@ -11,14 +11,14 @@ const mapStateToTop = (state) => {
 //function template to get callbacks and use dispatch in connect
 const mapDispatchToTop = (dispatch) => {
     return {
-        follow: (userId) => {
-            dispatch(followCreator(userId));
-        },
-        unFollow: (userId) => {
-            dispatch(unFollowCreator(userId));
-        },
         setUsers: (users) => {
             dispatch(setUsersCreator(users));
+        },
+        onFollowClick: (userId) => {
+            dispatch(followCreator(userId));
+        },
+        onUnFollowClick: (userId) => {
+            dispatch(unFollowCreator(userId));
         },
     };
 };

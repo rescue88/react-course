@@ -1,3 +1,100 @@
-.users {
-    background: red;
+/* users whole page  */
+.usersContainer {
+    background: green;
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* same styles for buttons in a user page */
+.usersContainer button {
+    width: 100px;
+    height: 30px;
+    color: #FFF;
+    background: linear-gradient(rgba(77,88,99, .9), rgba(111, 0, 44, .9));
+    border: none;
+    border-radius: 7px;
+}
+/* button react for hover */
+.usersContainer button:hover {
+    background: rgba(0, 0, 0, .7);
+}
+/* focused button */
+.usersContainer button:focus {
+    border: none;
+    outline: none;
+}
+/* button after doing a click */
+.usersContainer button:active {
+    transform: scale(1.1);
+}
+
+/* users list in a search */
+.usersContainer .usersContainerItems {
+    width: 100%;
+}
+/* header for the users page */
+.usersContainer .usersContainerHeader {
+    font-size: 2em;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+/* special styles for button show more */
+.usersContainer .usersContainerShowMore button {
+    width: 175px;
+    height: 60px;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* USER ITEM*/
+/* item container */
+.userItem {
+    background: #dcdcdc;
+    width: 60%;
+    height: 200px;
+    margin: 10px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* img/follow part */
+.userItem .userItemFollow {
+    width: 25%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* avatar */
+.userItem .userItemFollow .userItemFollowAva img {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}
+/* follow button block */
+
+/* info part */
+.userItem .userItemInfo {
+    width: 65%;
+    height: 65%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.userItem .userItemInfo .userItemInfoDetect, .userItem .userItemInfo .userItemInfoLocation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

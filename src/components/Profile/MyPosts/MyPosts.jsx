@@ -4,10 +4,10 @@ import React from 'react';
 
 const MyPosts = (props) => {
     //get my posts
-    let postElements = props.posts.map( item => <Post id={ item.id } message={ item.message } likesCount={ item.likesCount } key={ item.id } /> );
+    let postElements = props.posts.map( item => <Post id={ item.id } message={ item.message } likesCount={ item.likesCount } /> );
 
     //make a react link for textarea
-    let newPostElement = React.createRef();
+    let newPostElement = React.createRef(); 
     //add post after button clicked
     const onAddPost = () => {
         props.addPost();

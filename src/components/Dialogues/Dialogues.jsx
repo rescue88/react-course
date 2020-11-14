@@ -4,9 +4,9 @@ import st from './Dialogues.module.css';
 
 const Dialogues = (props) => {
     //get all dialog mates
-    let dialoguesElements = props.dialogues.map( item => <DialogItem name={ item.name } id={ item.id } key={ item.id } /> );
+    let dialoguesElements = props.dialogues.map( item => <DialogItem name={ item.name } id={ item.id } /> );
     //get all messages in the dialog
-    let messagesElements = props.messages.map( item => <Message message={ item.message }  key={ item.id } /> );
+    let messagesElements = props.messages.map( item => <Message message={ item.message } id={ item.id } /> );
 
     //add a message after button clicked
     const onAddMessage = () => {

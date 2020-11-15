@@ -4,12 +4,14 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 
 let initialState = { 
     users: [],
     pageSize: 7,
     totalUsersCount: 103,
     currentPage: 1,
+    isFetching: false,
  };
 
 //action creator template for following function
@@ -40,11 +42,18 @@ export const setCurrentPageCreator = (currentPage) => {
         currentPage: currentPage,
     }
 }
+//get amount of users and set it as a state's variable
 export const setUsersTotalCountCreator = (totalCount) => {
-    debugger;
     return {
         type: SET_USERS_TOTAL_COUNT,
         totalCount: totalCount,
+    }
+}
+//
+export const toggleIsFetchingCreator = (isFetching) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching: isFetching,
     }
 }
 //return changed state after a right action
@@ -90,6 +99,11 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 totalUsersCount: action.totalCount,
             };
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching,
+            }
         //return unchanged original state if there is not a users action
         default:
             return state;

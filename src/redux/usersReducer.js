@@ -15,42 +15,42 @@ let initialState = {
  };
 
 //action creator template for following function
-export const followCreator = (userId) => {
+export const onFollow = (userId) => {
   return {
       type: FOLLOW,
       userId: userId,
   }
 }
 //action creator template for unfollowing function
-export const unFollowCreator = (userId) => {
+export const onUnfollow = (userId) => {
   return {
       type: UNFOLLOW,
       userId: userId,
   }
 }
 //action creator template for generating users on page
-export const setUsersCreator = (users) => {
+export const setUsers = (users) => {
     return {
         type: SET_USERS,
         users: users,
     }
 }
 //action creator template for getting users bya page number click
-export const setCurrentPageCreator = (currentPage) => {
+export const setCurrentPage = (currentPage) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage: currentPage,
     }
 }
 //get amount of users and set it as a state's variable
-export const setUsersTotalCountCreator = (totalCount) => {
+export const setUsersTotalCount = (totalCount) => {
     return {
         type: SET_USERS_TOTAL_COUNT,
         totalCount: totalCount,
     }
 }
 //
-export const toggleIsFetchingCreator = (isFetching) => {
+export const togglePreloader = (isFetching) => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching: isFetching,

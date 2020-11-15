@@ -12,13 +12,13 @@ let initialState = {
 }
 
 //action creator template for addPost function
-export const addPostCreator = () => {
+export const addPost = () => {
   return {
       type: ADD_POST,
   }
 }
 //action creator template for onPostChange function
-export const updateNewPostValueCreator = (text) => {
+export const updateNewPostValue = (text) => {
   return {
       type: UPDATE_POST_TEXTAREA,
       newText: text,

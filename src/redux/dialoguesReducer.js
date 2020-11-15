@@ -21,13 +21,13 @@ let initialState = {
 }
 
 //action creator template for addMessage function
-export const addMessageCreator = () => {
+export const addMessage = () => {
   return {
     type: ADD_MESSAGE,
   }
 }
 //action creator template for onMessageChange function
-export const updateNewMessageValueCreator = (text) => {
+export const updateNewMessageValue = (text) => {
   return {
       type: UPDATE_MESSAGE_TEXTAREA,
       newText: text,

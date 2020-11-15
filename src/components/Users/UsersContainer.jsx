@@ -1,5 +1,5 @@
 import React from 'react';
-import { setUsersCreator, followCreator, unFollowCreator, setCurrentPageCreator, setUsersTotalCountCreator, toggleIsFetchingCreator } from '../../redux/usersReducer';
+import { setUsers, onFollow, onUnfollow, setCurrentPage, setUsersTotalCount, togglePreloader } from '../../redux/usersReducer';
 import * as axios from 'axios';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
@@ -34,8 +34,8 @@ class UsersContainer extends React.Component {
                         currentPage = { this.props.currentPage }
                         onPageChanged = { this.onPageChanged }
                         users={ this.props.users }
-                        onFollowClick = { this.props.onFollowClick }
-                        onUnFollowClick = { this.props.onUnFollowClick } />
+                        onFollowClick = { this.props.onFollow }
+                        onUnFollowClick = { this.props.onUnfollow } />
             </>
         )
     };
@@ -51,28 +51,12 @@ const mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
     };
 };
-//function template to get callbacks and use dispatch in connect
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUsers: (users) => {
-            dispatch(setUsersCreator(users));
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageCreator(currentPage));
-        },
-        onFollowClick: (userId) => {
-            dispatch(followCreator(userId));
-        },
-        onUnFollowClick: (userId) => {
-            dispatch(unFollowCreator(userId));
-        },
-        setUsersTotalCount: (totalCount) => {
-            dispatch(setUsersTotalCountCreator(totalCount));
-        },
-        togglePreloader: (isFetching) => {
-            dispatch(toggleIsFetchingCreator(isFetching));
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+//after a calling UsersContainer we call a function connect with a parametres for state managing of a users page
+export default connect(mapStateToProps, {
+    setUsers,
+    setCurrentPage,
+    onFollow,
+    onUnfollow,
+    setUsersTotalCount,
+    togglePreloader,
+})(UsersContainer);

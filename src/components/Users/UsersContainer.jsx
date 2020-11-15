@@ -1,6 +1,36 @@
+import React from 'react';
 import { setUsersCreator, followCreator, unFollowCreator, setCurrentPageCreator, setUsersTotalCountCreator } from '../../redux/usersReducer';
+import * as axios from 'axios';
 import Users from './Users';
 const { connect } = require("react-redux");
+
+//class component with some logic for users
+class UsersContainer extends React.Component {
+    //After first component's rendering add users
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+        });
+    };
+    //function for making a request after selecting other page
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+        });
+    };
+    //add users method
+    render = () => {
+        return <Users totalUsersCount={ this.props.totalUsersCount }
+                        pageSize = { this.props.pageSize }
+                        currentPage = { this.props.currentPage }
+                        onPageChanged = { this.onPageChanged }
+                        users={ this.props.users }
+                        onFollowClick = { this.props.onFollowClick }
+                        onUnFollowClick = { this.props.onUnFollowClick }
+                         />
+    };
+}
 
 //function template to get users info from state in connect
 const mapStateToProps = (state) => {
@@ -32,6 +62,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-
-export default UsersContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

@@ -1,5 +1,6 @@
 import st from './Users.module.css';
 import userPhoto from './../../assets/images/Annie.png';
+import { NavLink } from 'react-router-dom';
 
 //clear functional component
 const Users = (props) => {
@@ -28,7 +29,9 @@ const Users = (props) => {
                     return <div key={ item.id } className={ st.userItem }>
                             <div className={ st.userItemFollow }>
                                 <div className={st.userItemFollowAva }>
-                                    <img src={ item.photos.small != null ? item.photos.small : userPhoto } />
+                                    <NavLink to={`/profile/${item.id}`}>
+                                        <img src={ item.photos.small != null ? item.photos.small : userPhoto } />
+                                    </NavLink>
                                 </div>
                                 <div className={ st.userItemFollowButton }>
                                     { item.followed ? <button onClick = { () => { props.onUnFollowClick(item.id) }}>Unfollow</button> : <button onClick={ () => props.onFollowClick(item.id) } >Follow</button> }

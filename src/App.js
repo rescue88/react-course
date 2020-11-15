@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Navbar from './components/Nav/Nav';
 // click and change component
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer'
 import DialoguesContainer from './components/Dialogues/DialoguesContainer';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
@@ -22,7 +22,7 @@ const App = () => {
       <Header />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route path="/profile" render={ () => <Profile /> } />
+        <Route path="/profile" render={ () => <ProfileContainer /> } />
         <Route path="/dialogues" render={ () => <DialoguesContainer /> } />
         <Route path="/news" render={ () => <News /> } />
         <Route path="/music" render={ () => <Music />} />

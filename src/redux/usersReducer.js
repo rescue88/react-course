@@ -2,9 +2,14 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 
 let initialState = { 
     users: [],
+    pageSize: 7,
+    totalUsersCount: 103,
+    currentPage: 1,
  };
 
 //action creator template for following function
@@ -26,6 +31,20 @@ export const setUsersCreator = (users) => {
     return {
         type: SET_USERS,
         users: users,
+    }
+}
+//action creator template for getting users bya page number click
+export const setCurrentPageCreator = (currentPage) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage: currentPage,
+    }
+}
+export const setUsersTotalCountCreator = (totalCount) => {
+    debugger;
+    return {
+        type: SET_USERS_TOTAL_COUNT,
+        totalCount: totalCount,
     }
 }
 //return changed state after a right action
@@ -56,7 +75,20 @@ const usersReducer = (state = initialState, action) => {
         //initial users adding, get more users by a click
         case SET_USERS:
             return {
-                users: [...state.users, ...action.users],
+                ...state,
+                users: [ ...action.users ],
+            };
+        //change page list of users by a click
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage,
+            };
+        //get amoung of users
+        case SET_USERS_TOTAL_COUNT:
+            return {
+                ...state,
+                totalUsersCount: action.totalCount,
             };
         //return unchanged original state if there is not a users action
         default:

@@ -1,18 +1,24 @@
-import { setUsersCreator, followCreator, unFollowCreator } from '../../redux/usersReducer';
+import { setUsersCreator, followCreator, unFollowCreator, setCurrentPageCreator, setUsersTotalCountCreator } from '../../redux/usersReducer';
 import Users from './Users';
 const { connect } = require("react-redux");
 
 //function template to get users info from state in connect
-const mapStateToTop = (state) => {
+const mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage,
     };
 };
 //function template to get callbacks and use dispatch in connect
-const mapDispatchToTop = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setUsers: (users) => {
             dispatch(setUsersCreator(users));
+        },
+        setCurrentPage: (currentPage) => {
+            dispatch(setCurrentPageCreator(currentPage));
         },
         onFollowClick: (userId) => {
             dispatch(followCreator(userId));
@@ -20,9 +26,12 @@ const mapDispatchToTop = (dispatch) => {
         onUnFollowClick: (userId) => {
             dispatch(unFollowCreator(userId));
         },
+        setUsersTotalCount: (totalCount) => {
+            dispatch(setUsersTotalCountCreator(totalCount));
+        },
     };
 };
 
-const UsersContainer = connect(mapStateToTop, mapDispatchToTop)(Users);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
 
 export default UsersContainer;

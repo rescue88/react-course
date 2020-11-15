@@ -8,6 +8,17 @@
     justify-content: center;
     align-items: center;
 }
+
+/* click to render other page */
+.usersContainer .usersContainerSelector span {
+    margin: 2px;
+    cursor: pointer;
+    transition: .5s;
+}
+.usersContainer .usersContainerSelector .selectPage {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 /* same styles for buttons in a user page */
 .usersContainer button {
     width: 100px;

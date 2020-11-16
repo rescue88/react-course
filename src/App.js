@@ -4,7 +4,7 @@ import './App.css';
 import { Route } from 'react-router-dom';
 
 // same components
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Nav/Nav';
 // click and change component
 import ProfileContainer from './components/Profile/ProfileContainer'
@@ -19,7 +19,7 @@ import UsersContainer from './components/Users/UsersContainer';
 const App = () => {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className="app-wrapper-content">
         <Route path="/profile/:userId?" render={ () => <ProfileContainer /> } />

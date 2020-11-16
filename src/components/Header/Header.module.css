@@ -1,9 +1,19 @@
+/* header block common */
 .header {
     grid-area: h;
     background: rgba(115, 250, 227, .9);
-}
+    padding: 0 10px;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* logo image */
 .header img {
     width: 30px;
     height: 30px;
 }
+/* login block */
+/* .headerLoginBlock {
+    
+} */

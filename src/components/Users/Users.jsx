@@ -1,6 +1,7 @@
 import st from './Users.module.css';
 import userPhoto from './../../assets/images/Annie.png';
 import { NavLink } from 'react-router-dom';
+import * as axios from 'axios';
 
 //clear functional component
 const Users = (props) => {
@@ -34,7 +35,32 @@ const Users = (props) => {
                                     </NavLink>
                                 </div>
                                 <div className={ st.userItemFollowButton }>
-                                    { item.followed ? <button onClick = { () => { props.onUnFollowClick(item.id) }}>Unfollow</button> : <button onClick={ () => props.onFollowClick(item.id) } >Follow</button> }
+                                    { item.followed
+                                                    ? <button onClick = { () => { 
+                                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {
+                                                            withCredentials: true,
+                                                            headers: {
+                                                                'API-KEY': '8d1d777f-de1e-443d-9cb7-07c20fa27792',
+                                                            },
+                                                        }).then(response => {
+                                                            if(response.data.resultCode === 0) {
+                                                                props.onUnFollowClick(item.id);
+                                                            }
+                                                        });
+                                                    }}>Unfollow</button>
+                                                    : <button onClick={ () => {
+                                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {}, {
+                                                            withCredentials: true,
+                                                            headers: {
+                                                                'API-KEY': '8d1d777f-de1e-443d-9cb7-07c20fa27792',
+                                                            },
+                                                        }).then(response => {
+                                                            if(response.data.resultCode === 0) {
+                                                                props.onFollowClick(item.id);
+                                                            }
+                                                        });
+                                                        
+                                                    }} >Follow</button> }
                                 </div>
                             </div>
                             <div className={ st.userItemInfo }>

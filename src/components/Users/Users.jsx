@@ -31,7 +31,7 @@ const Users = (props) => {
                             <div className={ st.userItemFollow }>
                                 <div className={st.userItemFollowAva }>
                                     <NavLink to={`/profile/${item.id}`}>
-                                        <img src={ item.photos.small != null ? item.photos.small : userPhoto } />
+                                        <img src={ item.photos.small != null ? item.photos.small : userPhoto } alt="user avatar" />
                                     </NavLink>
                                 </div>
                                 <div className={ st.userItemFollowButton }>

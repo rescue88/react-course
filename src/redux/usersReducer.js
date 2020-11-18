@@ -5,6 +5,7 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE-FOLLOWING-PROGRESS';
 
 let initialState = { 
     users: [],
@@ -12,6 +13,7 @@ let initialState = {
     totalUsersCount: 103,
     currentPage: 1,
     isFetching: false,
+    followingProgress: [],
  };
 
 //action creator template for following function
@@ -49,13 +51,22 @@ export const setUsersTotalCount = (totalCount) => {
         totalCount: totalCount,
     }
 }
-//
+//open preloader gif while content is loading
 export const togglePreloader = (isFetching) => {
     return {
         type: TOGGLE_IS_FETCHING,
-        isFetching: isFetching,
+        isFetching,
     }
 }
+//block button while waiting for response from a server
+export const toggleFollowingProgress = (followingProgress, userId) => {
+    return {
+        type: TOGGLE_FOLLOWING_PROGRESS,
+        followingProgress,
+        userId,
+    }
+}
+
 //return changed state after a right action
 const usersReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -99,10 +110,19 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 totalUsersCount: action.totalCount,
             };
+        //draw preloader
         case TOGGLE_IS_FETCHING:
             return {
                 ...state,
                 isFetching: action.isFetching,
+            }
+        //block button
+        case TOGGLE_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingProgress: action.followingProgress
+                                                    ? [...state.followingProgress, action.userId]
+                                                    : state.followingProgress.filter( id => id !== action.userId ),
             }
         //return unchanged original state if there is not a users action
         default:

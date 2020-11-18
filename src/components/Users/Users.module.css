@@ -41,6 +41,11 @@
 .usersContainer button:active {
     transform: scale(1.1);
 }
+/* disabled button waiting for response */
+.usersContainer button:disabled {
+    background: red;
+    opacity: .8;
+}
 
 /* users list in a search */
 .usersContainer .usersContainerItems {

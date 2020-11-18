@@ -27,43 +27,47 @@ const Users = (props) => {
 
                 {//draw users
                     props.users.map( item => {
-                    return <div key={ item.id } className={ st.userItem }>
-                            <div className={ st.userItemFollow }>
-                                <div className={st.userItemFollowAva }>
-                                    <NavLink to={`/profile/${item.id}`}>
-                                        <img src={ item.photos.small != null ? item.photos.small : userPhoto } alt="user avatar" />
-                                    </NavLink>
+                        return <div key={ item.id } className={ st.userItem }>
+                                <div className={ st.userItemFollow }>
+                                    <div className={st.userItemFollowAva }>
+                                        <NavLink to={`/profile/${item.id}`}>
+                                            <img src={ item.photos.small != null ? item.photos.small : userPhoto } alt="user avatar" />
+                                        </NavLink>
+                                    </div>
+                                    <div className={ st.userItemFollowButton }>
+                                        { item.followed
+                                            ? <button disabled={ props.followingProgress.some( id => id === item.id) } onClick = { () => {
+                                                props.toggleFollowing(true, item.id);
+                                                usersAPI.unfollow(item.id).then(data => {
+                                                    if(data.resultCode === 0) {
+                                                        props.onUnFollowClick(item.id);
+                                                    }
+                                                    props.toggleFollowing(false, item.id);
+                                                });
+                                            }}>Unfollow</button>
+                                            : <button disabled={ props.followingProgress.some( id => id === item.id ) } onClick={ () => {
+                                                props.toggleFollowing(true, item.id);
+                                                usersAPI.follow(item.id).then(data => {
+                                                    if(data.resultCode === 0) {
+                                                        props.onFollowClick(item.id);
+                                                    }
+                                                    props.toggleFollowing(false, item.id);
+                                                });
+                                            }}>Follow</button>
+                                        }
+                                    </div>
                                 </div>
-                                <div className={ st.userItemFollowButton }>
-                                    { item.followed
-                                        ? <button onClick = { () => { 
-                                            usersAPI.unfollow(item.id).then(data => {
-                                                if(data.resultCode === 0) {
-                                                    props.onUnFollowClick(item.id);
-                                                }
-                                            });
-                                        }}>Unfollow</button>
-                                        : <button onClick={ () => {
-                                            usersAPI.follow(item.id).then(data => {
-                                                if(data.resultCode === 0) {
-                                                    props.onFollowClick(item.id);
-                                                }
-                                            });
-                                        }}>Follow</button>
-                                    }
+                                <div className={ st.userItemInfo }>
+                                    <div className={ st.userItemInfoDetect }>
+                                        <span>{ item.name }</span>
+                                        <span>{ item.status }</span>
+                                    </div>
+                                    <div className={ st.userItemInfoLocation }>
+                                        <span>{ 'item.location.country' },</span>
+                                        <span>{ 'item.location.city' }</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={ st.userItemInfo }>
-                                <div className={ st.userItemInfoDetect }>
-                                    <span>{ item.name }</span>
-                                    <span>{ item.status }</span>
-                                </div>
-                                <div className={ st.userItemInfoLocation }>
-                                    <span>{ 'item.location.country' },</span>
-                                    <span>{ 'item.location.city' }</span>
-                                </div>
-                            </div>
-                        </div>
                 })}
             </div>
             <div className={ st.usersContainerShowMore }>

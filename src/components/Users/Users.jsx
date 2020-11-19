@@ -36,24 +36,8 @@ const Users = (props) => {
                                     </div>
                                     <div className={ st.userItemFollowButton }>
                                         { item.followed
-                                            ? <button disabled={ props.followingProgress.some( id => id === item.id) } onClick = { () => {
-                                                props.toggleFollowing(true, item.id);
-                                                usersAPI.unfollow(item.id).then(data => {
-                                                    if(data.resultCode === 0) {
-                                                        props.onUnFollowClick(item.id);
-                                                    }
-                                                    props.toggleFollowing(false, item.id);
-                                                });
-                                            }}>Unfollow</button>
-                                            : <button disabled={ props.followingProgress.some( id => id === item.id ) } onClick={ () => {
-                                                props.toggleFollowing(true, item.id);
-                                                usersAPI.follow(item.id).then(data => {
-                                                    if(data.resultCode === 0) {
-                                                        props.onFollowClick(item.id);
-                                                    }
-                                                    props.toggleFollowing(false, item.id);
-                                                });
-                                            }}>Follow</button>
+                                            ? <button disabled={ props.followingProgress.some( id => id === item.id) } onClick = { () => props.unfollow(item.id) }>Unfollow</button>
+                                            : <button disabled={ props.followingProgress.some( id => id === item.id ) } onClick={ () => props.follow(item.id) }>Follow</button>
                                         }
                                     </div>
                                 </div>

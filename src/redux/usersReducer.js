@@ -1,4 +1,7 @@
-//describe actions
+import { usersAPI } from "../components/api/api";
+
+/* ===ACTIONS=== */
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -6,6 +9,10 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE-FOLLOWING-PROGRESS';
+
+/* ===/ACTIONS=== */
+
+/* ===STATE=== */
 
 let initialState = { 
     users: [],
@@ -15,6 +22,10 @@ let initialState = {
     isFetching: false,
     followingProgress: [],
  };
+
+ /* ===/STATE=== */
+
+/* ===ACTIONS CREATORS=== */
 
 //action creator template for following function
 export const onFollow = (userId) => {
@@ -59,13 +70,62 @@ export const togglePreloader = (isFetching) => {
     }
 }
 //block button while waiting for response from a server
-export const toggleFollowingProgress = (followingProgress, userId) => {
+export const toggleFollowing = (followingProgress, userId) => {
     return {
         type: TOGGLE_FOLLOWING_PROGRESS,
         followingProgress,
         userId,
     }
 }
+
+/* ===/ACTIONS CREATORS=== */
+
+/* ===THUNKS=== */
+
+//thunk: get users and send them into Users component
+export const getUsers = (currentPage, pageSize,) => {
+    return (dispatch) => {
+        //draw preloader
+        dispatch(togglePreloader(true));
+        //change current page after click
+        dispatch(setCurrentPage(currentPage));
+        //load page with a fixed amount of users
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            //get rid of preloader
+            dispatch(togglePreloader(false));
+            //get users from a server
+            dispatch(setUsers(data.items));
+        });
+    }
+};
+//thunk: block button while unfollowing
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowing(true, userId));
+        usersAPI.unfollowReq(userId).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(onUnfollow(userId));
+            }
+            dispatch(toggleFollowing(false, userId));
+        });
+    }
+};
+//thunk: block button while following
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowing(true, userId));
+        usersAPI.followReq(userId).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(onFollow(userId));
+            }
+            dispatch(toggleFollowing(false, userId));
+        });
+    }
+}
+
+/* ===/THUNKS=== */
+
+/* ===REDUCER LOGIC=== */
 
 //return changed state after a right action
 const usersReducer = (state = initialState, action) => {
@@ -129,5 +189,7 @@ const usersReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+/* ===/REDUCER LOGIC=== */
 
 export default usersReducer;

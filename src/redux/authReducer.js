@@ -1,5 +1,12 @@
-//discribe action
+/* ===ACTIONS=== */
+
+import { headerAPI } from "../components/api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA';
+
+/* ===/ACTIONS=== */
+
+/* ===STATE=== */
 
 let initialState = {
     userId: null,
@@ -8,6 +15,10 @@ let initialState = {
     isAuth: false,
     isFetching: false,
 }
+
+/* ===/STATE=== */
+
+/* ===ACTION CREATORS=== */
 
 export const setAuthUserData = (userId, email, login) => {
     return {
@@ -19,6 +30,25 @@ export const setAuthUserData = (userId, email, login) => {
         }
     }
 }
+
+/* ===/ACTION CREATORS=== */
+
+/* ===THUNKS=== */
+
+export const authMe = () => {
+    return (dispatch) => {
+        headerAPI.checkAuth().then( data => {
+            if(data.resultCode === 0) {
+                let { id, email, login} = data.data;
+                dispatch(setAuthUserData(id, email, login));
+            }
+        });
+    }
+}
+
+/* ===/THUNKS=== */
+
+/* ===REDUCER LOGIC=== */
 
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -33,5 +63,7 @@ const authReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+/* ===/REDUCER LOGIC=== */
 
 export default authReducer;

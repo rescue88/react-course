@@ -1,7 +1,14 @@
-//describe actions
+/* ===ACTIONS=== */
+
+import { profileAPI } from "../components/api/api";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
+
+/* ===/ACTIONS=== */
+
+/* ===STATE=== */
 
 let initialState = {
   posts: [
@@ -12,6 +19,10 @@ let initialState = {
   profile: null,
   newPostValue: 'Type info to create a post',
 }
+
+/* ===/STATE=== */
+
+/* ===ACTION CREATORS=== */
 
 //action creator template for addPost function
 export const addPost = () => {
@@ -33,6 +44,23 @@ export const setUserProfile = (profile) => {
     profile,
   }
 }
+
+/* ===/ACTION CREATORS=== */
+
+/* ===THUNKS=== */
+
+export const getProfileData = (userId => {
+  return (dispatch) => {
+    profileAPI.getProfileInfo(userId).then( data => {
+      dispatch(setUserProfile(data));
+    });
+  }
+})
+
+/* ===/THUNKS=== */
+
+/* ===REDUCER LOGIC=== */
+
 //return changed state after a right action
 const profileReducer = (state = initialState, action) => {
   switch(action.type) {
@@ -60,5 +88,7 @@ const profileReducer = (state = initialState, action) => {
         return state;
   }
 }
+
+/* ===REDUCER LOGIC=== */
 
 export default profileReducer;

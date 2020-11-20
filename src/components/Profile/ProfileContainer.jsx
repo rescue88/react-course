@@ -2,7 +2,8 @@ import React from 'react';
 import { getProfileData } from '../../redux/profileReducer';
 import Profile from "./Profile";
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 
 //class component container to make all side effects
 class ProfileContainer extends React.Component {
@@ -17,10 +18,6 @@ class ProfileContainer extends React.Component {
         this.props.getProfileData(userId);
     }
     render = () => {
-        //if you are not authorized, go to login
-        if(!this.props.isAuth) {
-            return <Redirect to="/login" />
-        }
         //draw Component for authorized users
         return (
             <Profile {...this.props} profile={ this.props.profile } />
@@ -28,15 +25,17 @@ class ProfileContainer extends React.Component {
     };
 };
 
-//get profile state info and take it for connect function
+//function template to get main data from state
 const mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth,
     };
 };
+
+//place Component into containers to check if user has an access
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 //return another component with url data
-let WithRouterDataContainerComponent = withRouter(ProfileContainer);
+let WithRouterDataContainerComponent = withRouter(AuthRedirectComponent);
 //create another context API container to take state/dispatch
 export default connect(mapStateToProps, {
     getProfileData,

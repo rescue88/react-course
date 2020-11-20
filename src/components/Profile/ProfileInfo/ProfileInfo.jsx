@@ -1,5 +1,6 @@
 import Preloader from '../../Common/Preloader';
 import st from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
     if(!props.profile) {
@@ -7,12 +8,14 @@ const ProfileInfo = (props) => {
     } else {
         return (
             <div>
-                <div className={st.profileImg}>
+                <div className={ st.profileBackground }>
                     <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="profile custom background" />
                 </div>
-                <div className={st.profileInfo}>
-                    <img src={ props.profile.photos.large } alt="profile avatar" />
-                    ava + description
+                <div className={ st.profileInfo }>
+                    <div className={ st.profileAva }>
+                        <img src={ props.profile.photos.large } alt="profile avatar" />
+                    </div>
+                    <ProfileStatus status="Hello, my friends" />
                 </div>
             </div>
         );

@@ -1,6 +1,7 @@
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import st from './Dialogues.module.css';
+import { Redirect } from 'react-router-dom';
 
 const Dialogues = (props) => {
     //get all dialog mates
@@ -18,6 +19,11 @@ const Dialogues = (props) => {
         props.updateNewMessageValue(text);
     }
 
+    //if you are not authorized, go to login
+    if(!props.isAuth) {
+        return <Redirect to="/login" />
+    }
+    //draw Component for authorized users
     return (
         <div className={ st.dialogues }>
             <div className={ st.dialoguesItems }>

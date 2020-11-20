@@ -14,6 +14,7 @@ import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import Friends from './components/Friends/Friends';
 import UsersContainer from './components/Users/UsersContainer';
+import Login from './components/Login/Login';
 //functions
 
 const App = () => {
@@ -24,8 +25,9 @@ const App = () => {
       <div className="app-wrapper-content">
         <Route path="/profile/:userId?" render={ () => <ProfileContainer /> } />
         <Route path="/dialogues" render={ () => <DialoguesContainer /> } />
+        <Route path="/login" render={ () => <Login /> } />
         <Route path="/news" render={ () => <News /> } />
-        <Route path="/music" render={ () => <Music />} />
+        <Route path="/music" render={ () => <Music /> } />
         <Route path="/settings" render={ () => <Settings /> } />
         <Route path="/users" render={ () => <UsersContainer /> } />
         <Route path="/friends" render={ () => <Friends /> } />

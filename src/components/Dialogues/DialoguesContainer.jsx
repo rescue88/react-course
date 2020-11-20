@@ -7,6 +7,7 @@ let mapStateToProps = (state) => {
         dialogues: state.dialoguesPage.dialogues,
         messages: state.dialoguesPage.messages,
         newMessageValue: state.dialoguesPage.newMessageValue,
+        isAuth: state.auth.isAuth,
     }
 }
 //execute connect function with a dialogues state after calling DialoguesContainer

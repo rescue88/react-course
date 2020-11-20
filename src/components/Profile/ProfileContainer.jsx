@@ -2,7 +2,7 @@ import React from 'react';
 import { getProfileData } from '../../redux/profileReducer';
 import Profile from "./Profile";
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 //class component container to make all side effects
 class ProfileContainer extends React.Component {
@@ -17,6 +17,11 @@ class ProfileContainer extends React.Component {
         this.props.getProfileData(userId);
     }
     render = () => {
+        //if you are not authorized, go to login
+        if(!this.props.isAuth) {
+            return <Redirect to="/login" />
+        }
+        //draw Component for authorized users
         return (
             <Profile {...this.props} profile={ this.props.profile } />
         );
@@ -27,6 +32,7 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth,
     };
 };
 //return another component with url data

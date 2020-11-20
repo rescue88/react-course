@@ -1,6 +1,6 @@
-/* ===ACTIONS=== */
+import { headerAPI } from "../api/api";
 
-import { headerAPI } from "../components/api/api";
+/* ===ACTIONS=== */
 
 const SET_USER_DATA = 'SET-USER-DATA';
 

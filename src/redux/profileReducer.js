@@ -1,6 +1,6 @@
-/* ===ACTIONS=== */
+import { profileAPI } from "../api/api";
 
-import { profileAPI } from "../components/api/api";
+/* ===ACTIONS=== */
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';

@@ -1,7 +1,6 @@
 import st from './Users.module.css';
 import userPhoto from './../../assets/images/Annie.png';
 import { NavLink } from 'react-router-dom';
-import { usersAPI } from '../api/api';
 
 //clear functional component
 const Users = (props) => {

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import { addMessage, updateNewMessageValue } from '../../redux/dialoguesReducer';
 import Dialogues from './Dialogues';
@@ -12,10 +13,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-//place Component into containers to check if user has an access
-const AuthRedirectComponent = withAuthRedirect(Dialogues);
-//create another context API container to take state/dispatch
-export default connect (mapStateToProps, {
-    addMessage,
-    updateNewMessageValue,
-})(AuthRedirectComponent);
+//create all context API containers to execute all functionality and place props into clear target Component
+export default compose(
+    connect (mapStateToProps, {
+        addMessage,
+        updateNewMessageValue,
+    }),
+    withAuthRedirect
+)(Dialogues);

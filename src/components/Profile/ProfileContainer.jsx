@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 //class component container to make all side effects
 class ProfileContainer extends React.Component {
@@ -32,11 +33,11 @@ const mapStateToProps = (state) => {
     };
 };
 
-//place Component into containers to check if user has an access
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-//return another component with url data
-let WithRouterDataContainerComponent = withRouter(AuthRedirectComponent);
-//create another context API container to take state/dispatch
-export default connect(mapStateToProps, {
-    getProfileData,
-})(WithRouterDataContainerComponent);
+//create all context API containers to execute all functionality and place props into clear target Component
+export default compose(
+    connect(mapStateToProps, {
+        getProfileData,
+    }),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer);

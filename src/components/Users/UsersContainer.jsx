@@ -2,7 +2,9 @@ import React from 'react';
 import { follow, unfollow , getUsers } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
-const { connect } = require("react-redux");
+import { connect } from 'react-redux';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 //class component with some logic for users
 class UsersContainer extends React.Component {
@@ -32,7 +34,7 @@ class UsersContainer extends React.Component {
     };
 }
 
-//function template to get users info from state in connect
+//function template to get main data from state
 const mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
@@ -43,9 +45,13 @@ const mapStateToProps = (state) => {
         followingProgress: state.usersPage.followingProgress,
     };
 };
-//after a calling UsersContainer we call a function connect with a parametres for state managing of a users page
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    getUsers,
-})(UsersContainer);
+
+//create all context API containers to execute all functionality and place props into clear target Component
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        getUsers,
+    }),
+    withAuthRedirect,
+)(UsersContainer);

@@ -1,4 +1,4 @@
-import { headerAPI } from "../api/api";
+import { authAPI } from "../api/api";
 
 /* ===ACTIONS=== */
 
@@ -37,7 +37,7 @@ export const setAuthUserData = (userId, email, login) => {
 
 export const authMe = () => {
     return (dispatch) => {
-        headerAPI.checkAuth().then( data => {
+        authAPI.checkAuth().then( data => {
             if(data.resultCode === 0) {
                 let { id, email, login} = data.data;
                 dispatch(setAuthUserData(id, email, login));

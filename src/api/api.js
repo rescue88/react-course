@@ -23,7 +23,7 @@ export const usersAPI = {
     },
 };
 
-export const headerAPI = {
+export const authAPI = {
     checkAuth() {
         return axiosInstance.get(`auth/me`).then(response => response.data);
     }

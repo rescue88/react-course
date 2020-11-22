@@ -15,7 +15,6 @@ import Music from './components/Music/Music';
 import Friends from './components/Friends/Friends';
 import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
-//functions
 
 const App = () => {
   return (

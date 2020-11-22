@@ -19,10 +19,6 @@ const Dialogues = (props) => {
         props.updateNewMessageValue(text);
     }
 
-    //if you are not authorized, go to login
-    if(!props.isAuth) {
-        return <Redirect to="/login" />
-    }
     //draw Component for authorized users
     return (
         <div className={ st.dialogues }>

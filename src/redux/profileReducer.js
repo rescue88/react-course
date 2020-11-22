@@ -5,6 +5,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_PROFILE_STATUS = 'SET-PROFILE-STATUS';
 
 /* ===/ACTIONS=== */
 
@@ -17,6 +18,7 @@ let initialState = {
     {id: 3, message: "Heyoo, im finally here", likesCount: 0},
   ],
   profile: null,
+  status: '',
   newPostValue: 'Type info to create a post',
 }
 
@@ -44,6 +46,13 @@ export const setUserProfile = (profile) => {
     profile,
   }
 }
+//change user status
+export const setProfileStatus = (status) => {
+  return {
+    type: SET_PROFILE_STATUS,
+    status,
+  }
+}
 
 /* ===/ACTION CREATORS=== */
 
@@ -54,6 +63,24 @@ export const getProfileData = (userId => {
     profileAPI.getProfileInfo(userId).then( data => {
       dispatch(setUserProfile(data));
     });
+  }
+});
+
+export const getProfileStatus = (userId => {
+  return (dispatch) => {
+    profileAPI.getStatus(userId).then(data => {
+      dispatch(setProfileStatus(data));
+    })
+  }
+});
+
+export const updateProfileStatus = (status => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status).then(data => {
+      if(data.resultCode === 0) {
+        dispatch(setProfileStatus(status));
+      }
+    })
   }
 })
 
@@ -82,6 +109,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.profile,
+      }
+    case SET_PROFILE_STATUS:
+      return {
+        ...state,
+        status: action.status,
       }
     //return unchanged original state if there is not a profile action
     default:

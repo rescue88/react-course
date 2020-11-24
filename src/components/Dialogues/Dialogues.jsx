@@ -1,7 +1,6 @@
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import st from './Dialogues.module.css';
-import { Redirect } from 'react-router-dom';
 
 const Dialogues = (props) => {
     //get all dialog mates

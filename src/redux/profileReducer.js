@@ -3,7 +3,6 @@ import { profileAPI } from "../api/api";
 /* ===ACTIONS=== */
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXTAREA = 'UPDATE-POST-TEXTAREA';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_PROFILE_STATUS = 'SET-PROFILE-STATUS';
 
@@ -19,7 +18,6 @@ let initialState = {
   ],
   profile: null,
   status: '',
-  newPostValue: 'Type info to create a post',
 }
 
 /* ===/STATE=== */
@@ -27,19 +25,13 @@ let initialState = {
 /* ===ACTION CREATORS=== */
 
 //action creator template for addPost function
-export const addPost = () => {
+export const addPost = (postMessage) => {
   return {
       type: ADD_POST,
+      postMessage,
   }
 }
-//action creator template for onPostChange function
-export const updateNewPostValue = (text) => {
-  return {
-    type: UPDATE_POST_TEXTAREA,
-    newText: text,
-  }
-}
-
+//set user's profile data
 export const setUserProfile = (profile) => {
   return {
     type: SET_USER_PROFILE,
@@ -93,17 +85,10 @@ const profileReducer = (state = initialState, action) => {
   switch(action.type) {
     //add a new post by click
     case ADD_POST:
-      let text = state.newPostValue;
       return {
         ...state,
-        posts: [...state.posts, {id: 4, message: text, likesCount: 0,}],
+        posts: [...state.posts, {id: 4, message: action.postMessage, likesCount: 0,}],
         newPostValue: '',
-      }
-    //look for changes in new post textarea
-    case UPDATE_POST_TEXTAREA:
-      return {
-        ...state,
-        newPostValue: action.newText,
       }
     case SET_USER_PROFILE:
       return {
@@ -121,6 +106,6 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-/* ===REDUCER LOGIC=== */
+/* ===/REDUCER LOGIC=== */
 
 export default profileReducer;

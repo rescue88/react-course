@@ -1,6 +1,10 @@
-//describe actions
+/* ===ACTIONS=== */
+
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_MESSAGE_TEXTAREA = 'UPDATE-MESSAGE-TEXTAREA';
+
+/* ===/ACTIONS=== */
+
+/* ===STATE=== */
 
 let initialState = {
   dialogues: [
@@ -17,43 +21,39 @@ let initialState = {
     {id: 4, message: "Heyoooou"},
     {id: 5, message: "Heyoooou"},
   ],
-  newMessageValue: '',
 }
 
+/* ===/STATE=== */
+
+/* ===ACTION CREATORS=== */
+
 //action creator template for addMessage function
-export const addMessage = () => {
+export const addMessage = (message) => {
   return {
     type: ADD_MESSAGE,
+    message,
   }
 }
-//action creator template for onMessageChange function
-export const updateNewMessageValue = (text) => {
-  return {
-      type: UPDATE_MESSAGE_TEXTAREA,
-      newText: text,
-  }
-}
+
+/* ===/ACTION CREATORS=== */
+
+/* ===REDUCER LOGIC=== */
+
 //return changed state after a right action
 const dialoguesReducer = (state = initialState, action) => {
   switch(action.type) {
     //send new message by a click
     case ADD_MESSAGE:
-      let text = state.newMessageValue;
       return {
         ...state,
-        messages: [...state.messages, {id: 6, message: text}],
-        newMessageValue: '',
-      }
-    //look for change in new message textarea
-    case UPDATE_MESSAGE_TEXTAREA:
-      return {
-        ...state,
-        newMessageValue: action.newText,
+        messages: [...state.messages, {id: 6, message: action.message,}],
       }
     //return unchanged state if there is not a dialogues action
     default:
         return state;
   }
 }
+
+/* ===/REDUCER LOGIC=== */
 
 export default dialoguesReducer;

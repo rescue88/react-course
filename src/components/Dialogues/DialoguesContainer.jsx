@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
-import { addMessage, updateNewMessageValue } from '../../redux/dialoguesReducer';
+import { addMessage } from '../../redux/dialoguesReducer';
 import Dialogues from './Dialogues';
 
 //function template to get main data from state
@@ -17,7 +17,6 @@ let mapStateToProps = (state) => {
 export default compose(
     connect (mapStateToProps, {
         addMessage,
-        updateNewMessageValue,
     }),
     withAuthRedirect
 )(Dialogues);

@@ -1,6 +1,24 @@
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import st from './Dialogues.module.css';
+import { Field, reduxForm } from 'redux-form';
+
+let SendMessageForm = (props) => {
+    return (
+        <form onSubmit={ props.handleSubmit }>
+            <div>
+                <Field name="message" component="textarea" placeholder="Enter your message" />
+            </div>
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    )
+}
+
+SendMessageForm = reduxForm({
+    form: 'messageTextarea',
+})(SendMessageForm);
 
 const Dialogues = (props) => {
     //get all dialog mates
@@ -8,14 +26,8 @@ const Dialogues = (props) => {
     //get all messages in the dialog
     let messagesElements = props.messages.map( item => <Message message={ item.message } id={ item.id } /> );
 
-    //add a message after button clicked
-    const onAddMessage = () => {
-        props.addMessage();
-    }
-    //rerender tree after textarea changes
-    const onMessageChange = (event) => {
-        let text = event.target.value;
-        props.updateNewMessageValue(text);
+    const onSubmit = (formData) => {
+        props.addMessage(formData.message);
     }
 
     //draw Component for authorized users
@@ -28,15 +40,8 @@ const Dialogues = (props) => {
                 <div>
                     { messagesElements }
                 </div>
-                <div>
-                    <div>
-                        <textarea onChange={ onMessageChange } value={ props.newMessageValue } placeholder="Enter your message"></textarea>
-                    </div>
-                    <div>
-                        <button onClick={ onAddMessage }>Отправить</button>
-                    </div>
-                </div>
-            </div>  
+                <SendMessageForm onSubmit= { onSubmit } />
+            </div>
         </div>
     );
 }

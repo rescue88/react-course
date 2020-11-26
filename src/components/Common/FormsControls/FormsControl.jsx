@@ -4,7 +4,6 @@ import st from './FormsControls.module.css';
 //draw a component looking for which input we need
 export const FormControl = (props) => {
     const hasError = props.meta.touched && props.meta.error;
-    debugger;
 
     return (
         <div className={ `${ st.formControl } ${ hasError? st.error: "" }` }>

@@ -1,22 +1,24 @@
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators/validators';
 import { Input } from '../Common/FormsControls/FormsControl';
+import { login } from './../../redux/authReducer'
 import st from './Login.module.css';
 
 const LoginForm = (props) => {
     return (
         <form onSubmit={ props.handleSubmit }>
             <div htmlFor="login">Enter login
-                <Field name="login" component={ Input } placeholder="Login"
+                <Field name="email" component={ Input } placeholder="Email"
                         validate={ [required] } />
             </div>
             <div htmlFor="password">Enter password
-                <Field name="password" component={ Input } placeholder="Password"
+                <Field name="password" type="password" component={ Input } placeholder="Password"
                         validate={ [required] } />
             </div>
             <div htmlFor="rememberMe">Remember me
-                <Field name="rememberMe" component={ Input } type="checkbox"
-                        validate={ [required] } />
+                <Field name="rememberMe" component={ Input } type="checkbox" />
             </div>
             <div className={ st.submitBtn }>
                 <button type="submit">Login</button>
@@ -30,8 +32,13 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = (props) => {
+    debugger;
     const onSubmit = (formData) => {
-        console.log(formData);
+        props.login(formData.email, formData.password, formData.rememberMe);
+    }
+
+    if(props.isAuth) {
+        return <Redirect to="/profile" />
     }
     return (
         <div className={ st.login }>
@@ -41,4 +48,12 @@ const Login = (props) => {
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth,
+    }
+}
+
+export default connect(mapStateToProps, {
+    login,
+})(Login);

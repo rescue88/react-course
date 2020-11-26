@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
         'API-KEY': '8d1d777f-de1e-443d-9cb7-07c20fa27792',
-    }
+    },
 });
 
 //usersPage requests
@@ -26,7 +26,13 @@ export const usersAPI = {
 export const authAPI = {
     checkAuth() {
         return axiosInstance.get(`auth/me`).then(response => response.data);
-    }
+    },
+    login(email, password, rememberMe = false) {
+        return axiosInstance.post(`auth/login`, { email, password, rememberMe }).then(response => response.data);
+    },
+    logout() {
+        return axiosInstance.delete(`auth/login`).then(response => response.data);
+    },
 };
 
 export const profileAPI = {
@@ -38,5 +44,5 @@ export const profileAPI = {
     },
     updateStatus(status) {
         return axiosInstance.put(`profile/status/`, { status }).then(response => response.data);
-    }
+    },
 }

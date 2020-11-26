@@ -2,12 +2,19 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import st from './Dialogues.module.css';
 import { Field, reduxForm } from 'redux-form';
+import { Textarea } from '../Common/FormsControls/FormsControl';
+import { maxLengthCreator, required } from '../../utils/validators/validators';
 
+//create a validate of maximum symbols
+const maxLength20 = maxLengthCreator(20);
+
+//create a form Component
 let SendMessageForm = (props) => {
     return (
         <form onSubmit={ props.handleSubmit }>
             <div>
-                <Field name="message" component="textarea" placeholder="Enter your message" />
+                <Field name="message" component={ Textarea } placeholder="Enter your message"
+                        validate={ [required, maxLength20] } />
             </div>
             <div>
                 <button type="submit">Отправить</button>
@@ -16,6 +23,7 @@ let SendMessageForm = (props) => {
     )
 }
 
+//reduxForm container to build a state part
 SendMessageForm = reduxForm({
     form: 'messageTextarea',
 })(SendMessageForm);
@@ -26,6 +34,7 @@ const Dialogues = (props) => {
     //get all messages in the dialog
     let messagesElements = props.messages.map( item => <Message message={ item.message } id={ item.id } /> );
 
+    //do smth after submit button clicked
     const onSubmit = (formData) => {
         props.addMessage(formData.message);
     }

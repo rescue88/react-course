@@ -2,12 +2,19 @@ import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { maxLengthCreator, required } from './../../../utils/validators/validators';
+import { Textarea } from '../../Common/FormsControls/FormsControl';
 
+//create a validate of maximum symbols
+const maxLength30 = maxLengthCreator(30);
+
+//create a form Component
 let MyPostsForm = (props) => {
     return (
         <form onSubmit={ props.handleSubmit }>
             <div> 
-                <Field name="postMessage" component="textarea" placeholder="Ender a post's message" />
+                <Field name="postMessage" component={ Textarea } placeholder="Ender a post's message"
+                        validate={ [required, maxLength30] } />
             </div>
             <div>
                 <button type="submit">Add post</button>
@@ -16,6 +23,7 @@ let MyPostsForm = (props) => {
     )
 }
 
+//reduxForm container to build a state part
 MyPostsForm = reduxForm({
     form: 'postTextarea',
 })(MyPostsForm);
@@ -24,22 +32,12 @@ const MyPosts = (props) => {
     //get my posts
     let postElements = props.posts.map( item => <Post id={ item.id } message={ item.message } likesCount={ item.likesCount } /> );
 
-    let onSubmit = (formData) => {
+    //do smth after submit button clicked
+    const onSubmit = (formData) => {
         props.addPost(formData.postMessage);
     }
-
-    //make a react link for textarea
-    // let newPostElement = React.createRef(); 
-    //add post after button clicked
-    // const onAddPost = () => {
-    //     props.addPost();
-    // }
-    //change global variable to rerender page after input changes
-    // const onPostChange = () => {
-    //     let text = newPostElement.current.value;
-    //     props.updateNewPostValue(text);
-    // }
-
+    
+    //draw Component for authorized users
     return (
         <div className={ st.content_posts }>
             <h3>My posts</h3>

@@ -5,6 +5,7 @@ import { required } from '../../utils/validators/validators';
 import { Input } from '../Common/FormsControls/FormsControl';
 import { login } from './../../redux/authReducer'
 import st from './Login.module.css';
+import otherSt from './../Common/FormsControls/FormsControl.module.css';
 
 const LoginForm = (props) => {
     return (
@@ -20,6 +21,9 @@ const LoginForm = (props) => {
             <div htmlFor="rememberMe">Remember me
                 <Field name="rememberMe" component={ Input } type="checkbox" />
             </div>
+            {
+                props.error && <div className={ otherSt.formSummaryError }> { props.error } </div>
+            }
             <div className={ st.submitBtn }>
                 <button type="submit">Login</button>
             </div>
@@ -32,7 +36,6 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = (props) => {
-    debugger;
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password, formData.rememberMe);
     }

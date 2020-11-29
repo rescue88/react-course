@@ -1,5 +1,5 @@
 import React from 'react';
-import st from './FormsControls.module.css';
+import st from './FormsControl.module.css';
 
 //draw a component looking for which input we need
 export const FormControl = (props) => {

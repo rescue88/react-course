@@ -3,7 +3,6 @@ import { getProfileData, getProfileStatus, updateProfileStatus } from '../../red
 import Profile from "./Profile";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import withAuthRedirect from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 //class component container to make all side effects
@@ -12,8 +11,10 @@ class ProfileContainer extends React.Component {
     componentDidMount = () => {
         let userId = this.props.match.params.userId;
         //if id = 0 return a default value
-        if(!userId) {
+        if(!userId && this.props.currentUserId) {
             userId = this.props.currentUserId;
+        } else {
+            this.props.history.push("/login") ;
         }
         //get profile info by an id
         this.props.getProfileData(userId);

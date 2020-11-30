@@ -1,5 +1,6 @@
 import React from 'react';
 import { follow, unfollow , getUsers } from '../../redux/usersReducer';
+import { getUsersSelector, getPageSizeSelector, getTotalUsersCountSelector, getCurrentPageSelector, getIsFetchingSelector, getFollowingProgressSelector } from '../../redux/selectors/usersSelectors';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
 import { connect } from 'react-redux';
@@ -35,16 +36,28 @@ class UsersContainer extends React.Component {
 }
 
 //function template to get main data from state
+// const mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingProgress: state.usersPage.followingProgress,
+//     };
+// };
+
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress,
+        users: getUsersSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalUsersCount: getTotalUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        followingProgress: getFollowingProgressSelector(state),
     };
 };
+
 
 //create all context API containers to execute all functionality and place props into clear target Component
 export default compose(

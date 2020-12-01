@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import st from './ProfileInfo.module.css';
 
 const ProfileStatusWithHooks = (props) => {
@@ -6,6 +6,10 @@ const ProfileStatusWithHooks = (props) => {
     let [editMode, setEditMode] = useState(false);
     // hook for local status changes
     let [status, setStatus] = useState(props.status);
+    //hook for calling function after rendreing a Component
+    useEffect( () => {
+        setStatus(props.status);
+    }, [ props.status ]);
 
     //show input after doubleclicking status
     const activateEditMode = () => {

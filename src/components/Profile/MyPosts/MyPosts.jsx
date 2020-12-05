@@ -28,16 +28,16 @@ MyPostsForm = reduxForm({
     form: 'postTextarea',
 })(MyPostsForm);
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
+    console.log("YO")
     //get my posts
-    let postElements = props.posts.map( item => <Post id={ item.id } message={ item.message } likesCount={ item.likesCount } /> );
+    let postElements = props.posts.map( item => <Post key={ item.id } id={ item.id } message={ item.message } likesCount={ item.likesCount } /> );
 
     //do smth after submit button clicked
     const onSubmit = (formData) => {
         props.addPost(formData.postMessage);
     }
-    
-    //draw Component for authorized users
+
     return (
         <div className={ st.content_posts }>
             <h3>My posts</h3>
@@ -49,7 +49,7 @@ const MyPosts = (props) => {
             { postElements }
             </div>
         </div>
-    );
-}
+    ); 
+});
 
 export default MyPosts;

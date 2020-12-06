@@ -84,42 +84,42 @@ export const toggleFollowing = (followingProgress, userId) => {
 
 //thunk: get users and send them into Users component
 export const getUsers = (currentPage, pageSize,) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         //draw preloader
         dispatch(togglePreloader(true));
         //change current page after click
         dispatch(setCurrentPage(currentPage));
+
         //load page with a fixed amount of users
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            //get rid of preloader
-            dispatch(togglePreloader(false));
-            //get users from a server
-            dispatch(setUsers(data.items));
-        });
+        let data = await usersAPI.getUsers(currentPage, pageSize);
+        //get rid of preloader
+        dispatch(togglePreloader(false));
+        //get users from a server
+        dispatch(setUsers(data.items));
     }
 };
 //thunk: block button while unfollowing
 export const unfollow = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowing(true, userId));
-        usersAPI.unfollowReq(userId).then(data => {
-            if(data.resultCode === 0) {
-                dispatch(onUnfollow(userId));
-            }
-            dispatch(toggleFollowing(false, userId));
-        });
+
+        let data = await usersAPI.unfollowReq(userId);
+        if(data.resultCode === 0) {
+            dispatch(onUnfollow(userId));
+        }
+        dispatch(toggleFollowing(false, userId));
     }
 };
 //thunk: block button while following
 export const follow = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowing(true, userId));
-        usersAPI.followReq(userId).then(data => {
-            if(data.resultCode === 0) {
-                dispatch(onFollow(userId));
-            }
-            dispatch(toggleFollowing(false, userId));
-        });
+
+        let data = await usersAPI.followReq(userId);
+        if(data.resultCode === 0) {
+            dispatch(onFollow(userId));
+        }
+        dispatch(toggleFollowing(false, userId));
     }
 }
 

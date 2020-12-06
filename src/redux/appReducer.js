@@ -28,12 +28,9 @@ export const setInitialize = () => {
 /* ===THUNKS=== */
 
 export const initializeApp = () => {
-    return (dispatch) => {
-        let authPromise = dispatch(authMe());
-        
-        authPromise.then(() => {
-            dispatch(setInitialize());
-        });
+    return async (dispatch) => {
+        await dispatch(authMe());    
+        dispatch(setInitialize());
     }
 }
 

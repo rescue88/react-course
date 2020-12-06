@@ -59,28 +59,25 @@ export const setProfileStatus = (status) => {
 /* ===THUNKS=== */
 
 export const getProfileData = (userId => {
-  return (dispatch) => {
-    profileAPI.getProfileInfo(userId).then( data => {
-      dispatch(setUserProfile(data));
-    });
+  return async (dispatch) => {
+    let data = await profileAPI.getProfileInfo(userId);
+    dispatch(setUserProfile(data));
   }
 });
 
 export const getProfileStatus = (userId => {
-  return (dispatch) => {
-    profileAPI.getStatus(userId).then(data => {
-      dispatch(setProfileStatus(data));
-    })
+  return async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setProfileStatus(data));
   }
 });
 
 export const updateProfileStatus = (status => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then(data => {
-      if(data.resultCode === 0) {
-        dispatch(setProfileStatus(status));
-      }
-    })
+  return async (dispatch) => {
+    let data = await profileAPI.updateStatus(status);
+    if(data.resultCode === 0) {
+      dispatch(setProfileStatus(status));
+    }
   }
 })
 

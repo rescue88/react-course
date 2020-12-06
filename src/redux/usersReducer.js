@@ -1,5 +1,21 @@
 import { usersAPI } from "../api/api";
 
+/* ===FUNCTIONS=== */
+
+//same logic for follow/unfollow
+const followUnfollowLogic = async (dispatch, userId, apiMethod, actionCreator) => {
+    dispatch(toggleFollowing(true, userId));
+
+    let data = await apiMethod(userId);
+    if(data.resultCode === 0) {
+        dispatch(actionCreator(userId));
+    }
+
+    dispatch(toggleFollowing(false, userId));
+}
+
+/* ===/FUNCTIONS=== */
+
 /* ===ACTIONS=== */
 
 const FOLLOW = 'usersReducer/FOLLOW';
@@ -101,25 +117,21 @@ export const getUsers = (currentPage, pageSize,) => {
 //thunk: block button while unfollowing
 export const unfollow = (userId) => {
     return async (dispatch) => {
-        dispatch(toggleFollowing(true, userId));
-
-        let data = await usersAPI.unfollowReq(userId);
-        if(data.resultCode === 0) {
-            dispatch(onUnfollow(userId));
-        }
-        dispatch(toggleFollowing(false, userId));
+        //assign individual apiMethod and actionCreator
+        let apiMethod = usersAPI.unfollowReq;
+        let actionCreator = onUnfollow;
+        //call a function to follow/unfollow
+        followUnfollowLogic(dispatch, userId, apiMethod, actionCreator);
     }
 };
 //thunk: block button while following
 export const follow = (userId) => {
     return async (dispatch) => {
-        dispatch(toggleFollowing(true, userId));
-
-        let data = await usersAPI.followReq(userId);
-        if(data.resultCode === 0) {
-            dispatch(onFollow(userId));
-        }
-        dispatch(toggleFollowing(false, userId));
+        //assign individual apiMethod and actionCreator
+        let apiMethod = usersAPI.followReq;
+        let actionCreator = onFollow;
+        //call a function to follow/unfollow
+        followUnfollowLogic(dispatch, userId, apiMethod, actionCreator);
     }
 }
 

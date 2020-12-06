@@ -1,6 +1,6 @@
 /* ===ACTIONS=== */
 
-const ADD_MESSAGE = 'ADD-MESSAGE';
+const ADD_MESSAGE = 'dialoguesReducer/ADD-MESSAGE';
 
 /* ===/ACTIONS=== */
 

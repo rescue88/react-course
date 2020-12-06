@@ -2,13 +2,13 @@ import { usersAPI } from "../api/api";
 
 /* ===ACTIONS=== */
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET-USERS';
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
-const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE-FOLLOWING-PROGRESS';
+const FOLLOW = 'usersReducer/FOLLOW';
+const UNFOLLOW = 'usersReducer/UNFOLLOW';
+const SET_USERS = 'usersReducer/SET-USERS';
+const SET_CURRENT_PAGE = 'usersReducer/SET-CURRENT-PAGE';
+const SET_USERS_TOTAL_COUNT = 'usersReducer/SET-USERS-TOTAL-COUNT';
+const TOGGLE_IS_FETCHING = 'usersReducer/TOGGLE-IS-FETCHING';
+const TOGGLE_FOLLOWING_PROGRESS = 'usersReducer/TOGGLE-FOLLOWING-PROGRESS';
 
 /* ===/ACTIONS=== */
 

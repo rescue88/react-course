@@ -2,11 +2,12 @@ import { authMe } from "./authReducer";
 
 /* ===ACTIONS=== */
 
-const SET_INITIALIZE = 'SET-INITIALIZE';
+const SET_INITIALIZE = 'appReducer/SET-INITIALIZE';
 
 /* ===/ACTIONS=== */
 
 /* ===STATE=== */
+
 
 let initialState = {
     initialized: false,

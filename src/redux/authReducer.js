@@ -3,7 +3,7 @@ import { authAPI } from "../api/api";
 
 /* ===ACTIONS=== */
 
-const SET_USER_DATA = 'SET-USER-DATA';
+const SET_USER_DATA = 'authReducer/SET-USER-DATA';
 
 /* ===/ACTIONS=== */
 

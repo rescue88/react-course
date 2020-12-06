@@ -2,10 +2,10 @@ import { profileAPI } from "../api/api";
 
 /* ===ACTIONS=== */
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const SET_PROFILE_STATUS = 'SET-PROFILE-STATUS';
-const DELETE_POST = 'DELETE-POST';
+const ADD_POST = 'profileReducer/ADD-POST';
+const SET_USER_PROFILE = 'profileReducer/SET-USER-PROFILE';
+const SET_PROFILE_STATUS = 'profileReducer/SET-PROFILE-STATUS';
+const DELETE_POST = 'profileReducer/DELETE-POST';
 
 /* ===/ACTIONS=== */
 

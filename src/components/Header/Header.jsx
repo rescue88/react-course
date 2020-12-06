@@ -7,7 +7,7 @@ const Header = (props) => {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png" alt="" />
             <div className={ st.headerLoginBlock }>
                 {
-                    props.isAuth ? <div>Hello, {props.login} <a onClick={ props.logout }>Logout</a></div> : <NavLink to="/login">Login</NavLink>
+                    props.isAuth ? <div>Hello, {props.login} <button onClick={ props.logout }>Logout</button></div> : <NavLink to="/login">Login</NavLink>
                 }
             </div>
         </header>

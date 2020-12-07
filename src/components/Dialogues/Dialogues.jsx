@@ -9,9 +9,9 @@ import { maxLengthCreator, required } from '../../utils/validators/validators';
 const maxLength20 = maxLengthCreator(20);
 
 //create a form Component
-let SendMessageForm = (props) => {
+let SendMessageForm = ({ handleSubmit }) => {
     return (
-        <form onSubmit={ props.handleSubmit }>
+        <form onSubmit={ handleSubmit }>
             <div>
                 <Field name="message" component={ Textarea } placeholder="Enter your message"
                         validate={ [required, maxLength20] } />
@@ -28,15 +28,15 @@ SendMessageForm = reduxForm({
     form: 'messageTextarea',
 })(SendMessageForm);
 
-const Dialogues = (props) => {
+const Dialogues = ({ dialogues, messages, addMessage }) => {
     //get all dialog mates
-    let dialoguesElements = props.dialogues.map( item => <DialogItem name={ item.name } id={ item.id } /> );
+    let dialoguesElements = dialogues.map( item => <DialogItem name={ item.name } id={ item.id } /> );
     //get all messages in the dialog
-    let messagesElements = props.messages.map( item => <Message message={ item.message } id={ item.id } /> );
+    let messagesElements = messages.map( item => <Message message={ item.message } id={ item.id } /> );
 
     //do smth after submit button clicked
     const onSubmit = (formData) => {
-        props.addMessage(formData.message);
+        addMessage(formData.message);
     }
 
     //draw Component for authorized users

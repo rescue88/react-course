@@ -1,20 +1,5 @@
 import { usersAPI } from "../api/api";
-
-/* ===FUNCTIONS=== */
-
-//same logic for follow/unfollow
-const followUnfollowLogic = async (dispatch, userId, apiMethod, actionCreator) => {
-    dispatch(toggleFollowing(true, userId));
-
-    let data = await apiMethod(userId);
-    if(data.resultCode === 0) {
-        dispatch(actionCreator(userId));
-    }
-
-    dispatch(toggleFollowing(false, userId));
-}
-
-/* ===/FUNCTIONS=== */
+import { followUnfollowLogic, updateObjectProps } from "../utils/helper";
 
 /* ===ACTIONS=== */
 
@@ -117,21 +102,15 @@ export const getUsers = (currentPage, pageSize,) => {
 //thunk: block button while unfollowing
 export const unfollow = (userId) => {
     return async (dispatch) => {
-        //assign individual apiMethod and actionCreator
-        let apiMethod = usersAPI.unfollowReq;
-        let actionCreator = onUnfollow;
         //call a function to follow/unfollow
-        followUnfollowLogic(dispatch, userId, apiMethod, actionCreator);
+        followUnfollowLogic(dispatch, userId, usersAPI.unfollowReq, onUnfollow);
     }
 };
 //thunk: block button while following
 export const follow = (userId) => {
     return async (dispatch) => {
-        //assign individual apiMethod and actionCreator
-        let apiMethod = usersAPI.followReq;
-        let actionCreator = onFollow;
         //call a function to follow/unfollow
-        followUnfollowLogic(dispatch, userId, apiMethod, actionCreator);
+        followUnfollowLogic(dispatch, userId, usersAPI.followReq, onFollow);
     }
 }
 
@@ -146,23 +125,13 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: [...state.users].map( item => {
-                    if(item.id === action.userId) {
-                        return {...item, followed: true,};
-                    }
-                    return item;
-                }),
+                users: updateObjectProps(state.users, action.userId, "id", { followed: true, })
             };
         //unfollow button click
         case UNFOLLOW:
             return {
                 ...state,
-                users: [...state.users].map( item => {
-                    if(item.id === action.userId) {
-                        return {...item, followed: false,};
-                    }
-                    return item;
-                })
+                users: updateObjectProps(state.users, action.userId, "id", { followed: false, }),
             };
         //initial users adding, get more users by a click
         case SET_USERS:

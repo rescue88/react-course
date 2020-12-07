@@ -1,0 +1,16 @@
+/* design page numbers */
+.pagesCont span {
+    font-size: 2em;
+    padding: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.pagesCont span:not(.selectedPage):hover {
+    color: white;
+}
+/* active page */
+.pagesCont .selectedPage {
+    background: rgba(200, 212, 34, .8);
+    font-weight: bold;
+}

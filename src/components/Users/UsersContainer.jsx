@@ -2,7 +2,6 @@ import React from 'react';
 import { follow, unfollow , getUsers } from '../../redux/usersReducer';
 import { getUsersSelector, getPageSizeSelector, getTotalUsersCountSelector, getCurrentPageSelector, getIsFetchingSelector, getFollowingProgressSelector } from '../../redux/selectors/usersSelectors';
 import Users from './Users';
-import Preloader from '../Common/Preloader';
 import { connect } from 'react-redux';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
@@ -20,33 +19,20 @@ class UsersContainer extends React.Component {
     //add users method
     render = () => {
         return (
-            <>
-                { this.props.isFetching ? <Preloader /> : null }
-                <Users totalUsersCount={ this.props.totalUsersCount }
-                        pageSize = { this.props.pageSize }
-                        currentPage = { this.props.currentPage }
-                        onPageChanged = { this.onPageChanged }
-                        users={ this.props.users }
-                        follow={ this.props.follow }
-                        unfollow={ this.props.unfollow }
-                        followingProgress={ this.props.followingProgress } />
-            </>
+            <Users totalUsersCount={ this.props.totalUsersCount }
+                    pageSize = { this.props.pageSize }
+                    currentPage = { this.props.currentPage }
+                    onPageChanged = { this.onPageChanged }
+                    users={ this.props.users }
+                    follow={ this.props.follow }
+                    unfollow={ this.props.unfollow }
+                    followingProgress={ this.props.followingProgress }
+                    isFetching={ this.props.isFetching } />
         )
     };
 }
 
 //function template to get main data from state
-// const mapStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingProgress: state.usersPage.followingProgress,
-//     };
-// };
-
 const mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),

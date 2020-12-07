@@ -29,8 +29,7 @@ MyPostsForm = reduxForm({
 })(MyPostsForm);
 
 const MyPosts = React.memo((props) => {
-    console.log("YO")
-    //get my posts
+    //get owner's posts
     let postElements = props.posts.map( item => <Post key={ item.id } id={ item.id } message={ item.message } likesCount={ item.likesCount } /> );
 
     //do smth after submit button clicked

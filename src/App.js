@@ -1,15 +1,17 @@
 //common
 import React from 'react';
-// styles
+//styles
 import './App.css';
-// redux part
-import { Route, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+//redux part
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
-// same components
+import store from './redux/redux-store';
+//same components
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Nav/Nav';
-// click and change component
+import Preloader from './components/Common/Preloader';
+//Components
 import ProfileContainer from './components/Profile/ProfileContainer'
 import DialoguesContainer from './components/Dialogues/DialoguesContainer';
 import News from './components/News/News';
@@ -20,7 +22,6 @@ import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/Login';
 //actions/thunks etc
 import { initializeApp } from './redux/appReducer';
-import Preloader from './components/Common/Preloader';
 
 class App extends React.Component {
   componentDidMount() {
@@ -55,7 +56,19 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default compose(
+const AppContainer = compose(
   withRouter,
   connect(mapStateToProps, { initializeApp }),
 )(App);
+
+const OZNetwork = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={ store }>
+          <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  );
+}
+
+export default OZNetwork;
